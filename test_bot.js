@@ -170,12 +170,16 @@ controller.hears(['hello'], 'direct_message,direct_mention,mention', function(bo
           console.log('ans2='+ans2);
           console.log('ans3='+ans3);
 
-          bot.reply(message, questions[0]);
-          bot.reply(message, '>' + ans1);
-          bot.reply(message, questions[1]);
-          bot.reply(message, '>' + ans2);
-          bot.reply(message, questions[2]);
-          bot.reply(message, '>' + ans3);
+
+          // bot.reply(message, questions[0]);
+          // bot.reply(message, '>' + ans1);
+          // bot.reply(message, questions[1]);
+          // bot.reply(message, '>' + ans2);
+          // bot.reply(message, questions[2]);
+          // bot.reply(message, '>' + ans3);
+          var finalStr = questions[0] + '>' + ans1 + questions[1] + '>' + ans2 + questions[2] + '>' + ans3;
+          bot.reply(message, finalStr);
+
 
           // controller.storage.users.get(message.user, function(err, user) {
             
