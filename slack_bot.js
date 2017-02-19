@@ -85,7 +85,7 @@ controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', funct
     bot.api.reactions.add({
         timestamp: message.ts,
         channel: message.channel,
-        name: 'robot_face',
+        name: 'thumbsup',
     }, function(err, res) {
         if (err) {
             bot.botkit.log('Failed to add emoji reaction :(', err);
@@ -243,3 +243,41 @@ function formatUptime(uptime) {
     uptime = uptime + ' ' + unit;
     return uptime;
 }
+
+
+
+var cleverbot = require("cleverbot.io"),  
+cleverbot = new cleverbot('ynpRtNe9kObsRWA7', 'mB1yVN9HNV7tcbYlNxYMZskuaDypIgNl');  
+cleverbot.setNick("Bob");  
+cleverbot.create(function (err, session) {  
+    if (err) {
+        console.log('cleverbot create fail.');
+    } else {
+        console.log('cleverbot create success.');
+    }
+});
+
+var Botkit = require('./lib/Botkit.js')  
+var os = require('os');
+
+var controller = Botkit.slackbot({  
+    debug: false,
+});
+
+var bot = controller.spawn(  
+  {
+      token:process.env.token
+  }
+).startRTM();
+
+
+controller.hears('','direct_message,direct_mention,mention',function(bot,message) {  
+    var msg = message.text;
+    cleverbot.ask(msg, function (err, response) {
+        if (!err) {
+            bot.reply(message, response);
+        } else {
+            console.log('cleverbot err: ' + err);
+        }
+    });
+})
